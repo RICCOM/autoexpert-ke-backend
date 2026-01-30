@@ -81,12 +81,8 @@
 #         port=5000
 #     )
 #!/usr/bin/env python
-"""
-AutoExpert KE Backend Application
-Main entry point for the Flask application
-"""
-
 import os
+import click
 from app import create_app, db, socketio
 from app.models import (
     User, MechanicProfile, Service, Booking,
@@ -99,7 +95,6 @@ app = create_app(os.environ.get('FLASK_ENV', 'development'))
 
 @app.shell_context_processor
 def make_shell_context():
-    """Make database models available in Flask shell"""
     return {
         'db': db,
         'User': User,
@@ -113,25 +108,19 @@ def make_shell_context():
     }
 
 
-@app.cli.command()
-def init_db():
-    """Initialize the database with sample data"""
+@app.cli.command('init-db')
+def init_db_command():
     from app.utils.seed_data import seed_database
-    
-    print("Creating database tables...")
+    click.echo('Creating database tables...')
     db.create_all()
-    
-    print("Seeding database with sample data...")
+    click.echo('Seeding database with sample data...')
     seed_database()
-    
-    print("Database initialized successfully!")
+    click.echo('✅ Database initialized successfully!')
 
 
-@app.cli.command()
-def create_admin():
-    """Create an admin user"""
+@app.cli.command('create-admin')
+def create_admin_command():
     from getpass import getpass
-    
     email = input("Admin email: ")
     password = getpass("Admin password: ")
     first_name = input("First name: ")
@@ -147,18 +136,11 @@ def create_admin():
         is_verified=True
     )
     admin.set_password(password)
-    
     db.session.add(admin)
     db.session.commit()
-    
-    print(f"Admin user created: {email}")
+    click.echo(f'✅ Admin user created: {email}')
 
 
 if __name__ == '__main__':
-    # Run with SocketIO support
-    socketio.run(
-        app,
-        debug=app.config['DEBUG'],
-        host='0.0.0.0',
-        port=5000
-    )
+    # For local development
+    socketio.run(app, debug=app.config['DEBUG'], host='0.0.0.0', port=5000)

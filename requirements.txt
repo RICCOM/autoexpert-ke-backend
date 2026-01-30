@@ -38,21 +38,18 @@
 # Werkzeug==3.0.6
 # wsproto==1.2.0
 # zipp==3.20.2
-alembic==1.14.1
-bcrypt==4.1.1
-dnspython==2.6.1                # often needed for email or Mongo if you use it
-eventlet==0.33.3                # required for Flask-SocketIO with eventlet worker
 Flask==3.0.0
-Flask-Cors==4.0.0
-Flask-JWT-Extended==4.5.3
-Flask-Migrate==4.0.5
-Flask-SocketIO==5.3.5
+Flask-CORS==4.0.0
 Flask-SQLAlchemy==3.1.1
-gunicorn==21.2.0                # production server (Railway uses this)
-psycopg2-binary==2.9.9          # PostgreSQL driver (for Railway Postgres)
-PyJWT==2.9.0                    # direct dep of Flask-JWT-Extended in many cases
-python-dotenv==1.0.0            # for loading .env files
-python-engineio==4.13.0         # direct for Flask-SocketIO
-python-socketio==5.16.0         # direct for Flask-SocketIO
-requests==2.31.0                # if you make HTTP calls
-SQLAlchemy==2.0.46
+Flask-Migrate==4.0.5
+Flask-JWT-Extended==4.5.3
+Flask-SocketIO==5.3.5
+psycopg2-binary==2.9.9
+python-dotenv==1.0.0
+bcrypt==4.1.1
+requests==2.31.0
+gunicorn==21.2.0
+eventlet==0.33.3
+phonenumbers==8.13.26
+email-validator==2.1.0
+python-dateutil==2.8.2
